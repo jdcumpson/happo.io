@@ -13,7 +13,8 @@
     "test": "jest",
     "lint": "eslint .",
     "build": "rimraf build && babel src --ignore 'test/.*' --out-dir build --copy-files",
-    "prepublish": "yarn build"
+    "prepublish": "npm run build",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",

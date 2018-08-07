@@ -15,10 +15,17 @@ echo "CURRENT_SHA: ${CURRENT_SHA}"
 echo "CHANGE_URL: ${CHANGE_URL}"
 echo "INSTALL_CMD: ${INSTALL_CMD}"
 
-NPM_CLIENT="npm"
-if [ -f "yarn.lock" ]; then
-  echo "Detected yarn.lock - using yarn to install dependencies"
-  NPM_CLIENT="yarn"
+# Get a custom package manager command from environment variables
+NPM_CLIENT="$PACKAGE_MANAGER_CMD"
+
+# If no custom command was passed infer what package manager to use
+if [ -z NPM_CLIENT ]; then
+  NPM_CLIENT="npm"
+
+  if [ -f "yarn.lock" ]; then
+    echo "Detected yarn.lock - using yarn to install dependencies"
+    NPM_CLIENT="yarn"
+  fi
 fi
 
 run-happo() {
